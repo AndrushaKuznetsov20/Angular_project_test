@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  usernameTooltip = 'Имя пользователя должно содержать от 5 до 30 символов';
 
   constructor(
     private fb: FormBuilder,
@@ -34,26 +35,33 @@ export class RegisterComponent {
 
   newUser(): void {
     if (this.registerForm.valid) {
-      const { username, email, number, password, role } = this.registerForm.value;
-      const registerData: Register = { username, email, number, password };
+      const data = {
+        username: this.registerForm.value.username,
+        email: this.registerForm.value.email,
+        number: this.registerForm.value.number,
+        password: this.registerForm.value.password
+      };
 
-      this.authService.register(registerData, role).subscribe({
+      const role = this.registerForm.value.role;
+
+      this.authService.register(data, role).subscribe({
         next: (res) => {
-          console.log(res);
-        },
-        error: (e) => console.error(e)
-      });
 
-      // this.authService.register(registerData, role).subscribe(
-      //   (response) => {
-      //     this.toastr.success(response.message);
-      //     this.registerForm.reset();
-      //   },
-      //   (error) => {
-      //     console.error('Ошибка регистрации:', error);
-      //     this.toastr.error('Произошла ошибка при регистрации. Пожалуйста, попробуйте еще раз !');
-      //   }
-      // );
+          console.log(res);
+          alert(res);
+
+          if(res == "Регистрация прошла успешно !")
+          {
+              this.registerForm.reset();
+          }
+        },
+        error: (e) => {
+          console.error();
+        }
+      });
+    } else
+    {
+      console.error('Форма не валидна', this.registerForm.errors);
     }
   }
 }

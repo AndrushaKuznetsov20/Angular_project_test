@@ -1,37 +1,42 @@
-<div class="submit-form">
-  <form [formGroup]="registerForm">
-    <div class="form-group">
-      <label for="username">Логин:</label>
-      <input type="text" class="form-control" id="username" formControlName="username" />
-    </div>
 
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" class="form-control" id="email" formControlName="email" />
+    <div class="submit-form">
+      <form [formGroup]="registerForm">
+        <!-- <h2 style="text-align: center;">Регистрация</h2> -->
+        <div class="form-group">
+          <!-- <label for="username">Логин:</label> -->
+          <input type="text" class="form-control" id="username" placeholder="Введите логин" formControlName="username"/>
+        </div>
+    
+        <div class="form-group">
+          <!-- <label for="email">Email:</label> -->
+          <input type="email" class="form-control" id="email" placeholder="Введите Email" formControlName="email" />
+        </div>
+    
+        <div class="form-group">
+          <!-- <label for="number">Номер телефона:</label> -->
+          <input type="tel" class="form-control" id="number" placeholder="Введите номер телефона" formControlName="number" />
+        </div>
+    
+        <div class="form-group">
+          <!-- <label for="password">Пароль:</label> -->
+          <input type="password" class="form-control" id="password" placeholder="Введите пароль" formControlName="password" />
+        </div>
+    
+        <div class="form-group">
+          <!-- <label>Роль:</label> -->
+          <div class="radio-group">
+            <label class="radio-label">
+              <input type="radio" name="role" value="CUSTOMER" formControlName="role"><b>Покупатель</b>
+            </label>
+            <label class="radio-label">
+              <input type="radio" name="role" value="SALESMAN" formControlName="role"><b>Продавец</b>
+            </label>
+          </div>
+        </div>
+        
+        <button (click)="newUser()" type="submit" class="registration-button">Зарегистрироваться</button>
+        <hr>
+        <button class="registration-button">У меня уже есть аккаунт</button>
+        <br>
+      </form>
     </div>
-
-    <div class="form-group">
-      <label for="number">Номер телефона:</label>
-      <input type="tel" class="form-control" id="number" formControlName="number" />
-    </div>
-
-    <div class="form-group">
-      <label for="password">Пароль:</label>
-      <input type="password" class="form-control" id="password" formControlName="password" />
-    </div>
-
-    <div class="form-group">
-      <label>Роль:</label>
-      <div>
-        <label>
-          <input type="radio" name="role" value="CUSTOMER" formControlName="role"> CUSTOMER
-        </label>
-        <label>
-          <input type="radio" name="role" value="SALESMAN" formControlName="role"> SALESMAN
-        </label>
-      </div>
-    </div>
-
-    <button (click)="newUser()" type="submit" class="btn btn-success">Зарегистрироваться</button>
-  </form>
-</div>
