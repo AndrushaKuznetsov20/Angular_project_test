@@ -4,19 +4,23 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SimpleUserPageComponent } from './components/simpleUserPage/simpleUserPage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModerUserPageComponent } from './components/moder-user-page/moder-user-page.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SimpleUserPageComponent,
+    ModerUserPageComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    CommonModule,
     ToastrModule.forRoot()
   ],
   providers: [],

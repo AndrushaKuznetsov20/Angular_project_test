@@ -22,7 +22,7 @@ export class AuthService
   }
   
 
-  login(data: Login): Observable<any>
+  login(data: any): Observable<any>
   {
     const url = `${this.apiUrl}/sign-in`;
     return this.http.post(url, data);

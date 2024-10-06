@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Register } from '../../models/register.model';
 import { ToastrService } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +17,13 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
+  
   registerForm: FormGroup;
   usernameTooltip = 'Имя пользователя должно содержать от 5 до 30 символов';
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private authService: AuthService,
     private toastr: ToastrService
   ) {
@@ -33,6 +36,10 @@ export class RegisterComponent {
     });
   }
 
+  redirectToLogin() {
+    this.router.navigate(['/login']);
+  }
+  
   newUser(): void {
     if (this.registerForm.valid) {
       const data = {
@@ -53,6 +60,7 @@ export class RegisterComponent {
           if(res == "Регистрация прошла успешно !")
           {
               this.registerForm.reset();
+              this.redirectToLogin();
           }
         },
         error: (e) => {

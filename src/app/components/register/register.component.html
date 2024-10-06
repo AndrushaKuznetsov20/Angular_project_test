@@ -1,6 +1,11 @@
-
-    <div class="submit-form">
+<div class="submit-form">
+  <div>
+    <h2 style="text-align: center; margin-right: 10%;">Сервис для хранения данных о достопримечательностях</h2>
+  </div>
       <form [formGroup]="registerForm">
+        <div>
+          <h3 style="text-align: center;">Регистрация</h3>
+        </div>
         <!-- <h2 style="text-align: center;">Регистрация</h2> -->
         <div class="form-group">
           <!-- <label for="username">Логин:</label> -->
@@ -26,17 +31,17 @@
           <!-- <label>Роль:</label> -->
           <div class="radio-group">
             <label class="radio-label">
-              <input type="radio" name="role" value="CUSTOMER" formControlName="role"><b>Покупатель</b>
+              <input type="radio" name="role" value="SIMPLE_USER" formControlName="role"><b>Простой пользователь</b>
             </label>
             <label class="radio-label">
-              <input type="radio" name="role" value="SALESMAN" formControlName="role"><b>Продавец</b>
+              <input type="radio" name="role" value="MODERATOR" formControlName="role"><b>Модератор</b>
             </label>
           </div>
         </div>
         
         <button (click)="newUser()" type="submit" class="registration-button">Зарегистрироваться</button>
         <hr>
-        <button class="registration-button">У меня уже есть аккаунт</button>
+        <button class="registration-button" (click)="redirectToLogin()">У меня уже есть аккаунт</button>
         <br>
       </form>
-    </div>
+</div>

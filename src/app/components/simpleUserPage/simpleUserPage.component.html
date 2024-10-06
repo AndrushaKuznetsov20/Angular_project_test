@@ -1,0 +1,36 @@
+<div>
+    <label for="typeAttraction">Выберите тип достопримечательности:</label>
+    <select [(ngModel)]="selectedType">
+        <option *ngFor="let type of (attractionTypes | keyvalue)" [value]="type.key">
+          {{ type.value }}
+        </option>
+      </select>
+
+      <label for="locality">Выберите локацию:</label>
+      <select [(ngModel)]="selectedLocalityId" *ngIf="localities.length > 0">
+          <option *ngFor="let locality of localities" [value]="locality.id">
+              {{ locality.settlement }}
+          </option>
+      </select>
+      
+
+    <button (click)="applyFilter()">Применить фильтрацию</button>
+    <button (click)="clearFilter()">Сбросить фильтр</button>
+  </div>
+  
+  
+  <div class="attraction-list">
+    <div *ngFor="let attraction of attractions" class="attraction-item">
+      <h2>{{ attraction.name }}</h2>
+      <p>{{ attraction.briefDescription }}</p>
+      <p>Тип: {{ attraction.typeAttraction }}</p>
+      <p>
+        Местоположение: 
+        <span class="locality-link" (click)="showLocalityInfo(attraction.locality)">
+          {{ attraction.locality?.settlement }}
+        </span>
+      </p>
+      <p>Дата создания: {{ attraction.createDate | date }}</p>
+    </div>
+  </div>
+  
