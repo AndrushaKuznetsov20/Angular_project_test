@@ -49,29 +49,32 @@ export class SimpleUserPageComponent {
     alert(`Информация о местоположении:\nРегион: ${locality?.region}\nГород: ${locality?.settlement}\nШирота: ${locality?.latitude}\nДолгота: ${locality?.longitude}`);
   }
 
-  loadAttractions(typeAttraction?: TypeAttraction): void {
-    this.attractionService.getAttractions(typeAttraction).subscribe(
-      (data) => {
-        if (data.attractions && Array.isArray(data.attractions)) {
-          this.attractions = data.attractions.map(attraction => ({
-            id: attraction.id,
-            name: attraction.name,
-            createDate: attraction.createDate,
-            briefDescription: attraction.briefDescription,
-            typeAttraction: attraction.typeAttraction,
-            locality: attraction.locality,
-            assistanceList: attraction.assistanceList
-          }));
-        } else {
-          console.error(data.attractions);
-          this.attractions = [];
+  loadAttractions(typeAttraction?: TypeAttraction, localityId?: number): void {
+    this.attractionService.getAttractions(typeAttraction, localityId).subscribe(
+        (data) => {
+            console.log('Data received:', data);
+
+            // Предположим, что ваш API возвращает объект с ключом attractions
+            if (data && Array.isArray(data.attractions)) {
+                this.attractions = data.attractions.map(attraction => ({
+                    id: attraction.id,
+                    name: attraction.name,
+                    createDate: attraction.createDate,
+                    briefDescription: attraction.briefDescription,
+                    typeAttraction: attraction.typeAttraction,
+                    locality: attraction.locality, // Эта часть теперь будет объектом
+                    assistanceList: attraction.assistanceList
+                }));
+            } else {
+                console.error(data); 
+                this.attractions = [];
+            }
+        },
+        (error) => {
+            console.error(error);
         }
-      },
-      (error) => {
-        console.error(error);
-      }
     );
-  }
+}
 
   loadLocalities(): void {
     this.localityService.getLocalities().subscribe(
@@ -85,12 +88,14 @@ export class SimpleUserPageComponent {
     );
 }
 
-  applyFilter(): void {
-    this.loadAttractions(this.selectedType as TypeAttraction);
-  }
+applyFilter(): void {
+  this.loadAttractions(this.selectedType!, this.selectedLocalityId!);
+}
 
-  clearFilter() {
-    this.ngOnInit();
-  }
-  
+clearFilter(): void {
+  this.selectedType = null; 
+  this.selectedLocalityId = null;
+  this.loadAttractions();
+}
+
 }

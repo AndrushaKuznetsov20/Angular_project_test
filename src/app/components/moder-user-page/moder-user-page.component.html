@@ -1,1 +1,102 @@
-<p>moder-user-page works!</p>
+<div>
+    <h2>Добавить достопримечательность</h2>
+    <form [formGroup]="attractionForm">
+      <label for="name">Наименование:</label>
+      <input id="name" formControlName="name" />
+  
+      <label for="briefDescription">Краткое описание:</label>
+      <textarea id="briefDescription" formControlName="briefDescription"></textarea>
+  
+      <select id="typeAttraction" formControlName="typeAttraction">
+        <option value="" disabled selected>Выберите тип достопримечательности</option>
+        <option *ngFor="let type of attractionTypes | keyvalue" [value]="type.key">{{ type.value }}</option>
+      </select>
+   
+
+      <label for="locality">Локация:</label>
+      <select id="locality" formControlName="locality">
+        <option value="" disabled selected>Выберите локацию</option>
+        <option *ngFor="let locality of localities" [value]="locality.id">{{ locality.settlement }}</option>
+      </select>
+  
+      <button type="submit" (click)="createAttraction()">Добавить достопримечательность</button>
+    </form>
+  
+    <h2>Добавить локацию</h2>
+    <form [formGroup]="localityForm">
+      <label for="settlement">Населённый пункт:</label>
+      <input id="settlement" formControlName="settlement" />
+
+      <label for="region">Регион:</label>
+      <input id="region" formControlName="region" />
+
+      <label for="latitude">Широта:</label>
+      <input id="latitude" type="number" formControlName="latitude" />
+  
+      <label for="longitude">Долгота:</label>
+      <input id="longitude" type="number" formControlName="longitude" />
+  
+      <button type="submit" (click)="createLocality()">Добавить локацию</button>
+    </form>
+  
+    <h2>Добавить услугу</h2>
+    <form [formGroup]="assistanceForm">
+      <label for="typeAssistance">Тип услуги:</label>
+      <select id="typeAssistance" formControlName="typeAssistance">
+        <option value="" disabled selected>Выберите тип услуги</option>
+        <option *ngFor="let type of typeOptions1" [value]="type.id">{{ type.name }}</option>
+      </select>
+      
+      <label for="briefDescription">Краткое описание:</label>
+      <textarea id="briefDescription" formControlName="briefDescription"></textarea>
+    
+      <label for="performer">Исполнитель:</label>
+      <input id="performer" formControlName="performer" />
+    
+      <button type="submit" (click)="createAssistance()">Добавить услугу</button>
+    </form>
+    
+    <div class="content-sections">
+      <div class="attractions-section">
+        <h2>Достопримечательности</h2>
+        <div class="attraction-list">
+          <div *ngFor="let attraction of attractions" class="attraction-item">
+            <h3>{{ attraction.name }}</h3>
+            <p>{{ attraction.briefDescription }}</p>
+            <p>Тип: {{ attraction.typeAttraction }}</p>
+            <p>
+              Местоположение: 
+              <span class="locality-link" (click)="showLocalityInfo(attraction.locality)">
+                {{ attraction.locality?.settlement }}
+              </span>
+            </p>
+            <p>Дата создания: {{ attraction.createDate | date }}</p>
+          </div>
+        </div>
+      </div>
+    
+      <div class="assistances-section">
+        <h2>Услуги</h2>
+        <div class="assistance-list">
+          <div *ngFor="let assistance of assistances" class="assistance-item">
+            <h3>{{ assistance.typeAssistance}}</h3>
+            <p>{{ assistance.briefDescription }}</p>
+            <p>Исполнитель: {{ assistance.performer }}</p>
+          </div>
+        </div>
+      </div>
+    
+      <div class="localities-section">
+        <h2>Местоположения</h2>
+        <div class="locality-list">
+          <div *ngFor="let locality of localities" class="locality-item">
+            <h3>{{ locality.settlement}}</h3>
+            <p>{{ locality.region }}</p>
+            <p>Широта: {{ locality.latitude }}</p>
+            <p>Долгота: {{ locality.longitude }}</p>
+            <p>Лист достопримечательностей: {{ locality.attractionList }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    

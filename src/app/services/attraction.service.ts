@@ -13,14 +13,27 @@ export class AttractionService {
 
   constructor(private http: HttpClient) {}
 
-  getAttractions(typeAttraction?: TypeAttraction): Observable<{ attractions: Attraction[] }> {
+  getAttractions(typeAttraction?: TypeAttraction, localityId?: number): Observable<{ attractions: Attraction[] }> {
     let url = `${this.apiUrl}/read`;
-  
+
+    let params = [];
+    
     if (typeAttraction) {
-      url += `?typeAttraction=${typeAttraction}`;
+        params.push(`typeAttraction=${typeAttraction}`);
     }
-  
+    if (localityId) {
+        params.push(`localityId=${localityId}`);
+    }
+
+    if (params.length > 0) {
+        url += `?${params.join('&')}`;
+    }
+
     return this.http.get<{ attractions: Attraction[] }>(url);
+  } 
+
+  createAttraction(attraction: any): Observable<any> {
+    let url = `${this.apiUrl}/create`;
+    return this.http.post(url, attraction, { responseType: 'text' });
   }
-  
 }

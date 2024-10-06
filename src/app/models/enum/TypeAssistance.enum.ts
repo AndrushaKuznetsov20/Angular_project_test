@@ -1,7 +1,7 @@
 export enum TypeAssistance {
-  GUIDE = 'Гид',
-  CAR_TOUR = 'Автотур',
-  FOOD = 'Питание',
-  PHOTOSHOOT = 'Фотоссесия',
-  EDUCATIONAL_PROGRAM = 'Образовательная программа'
+  GUIDE = 'GUIDE',
+  CAR_TOUR = 'CAR_TOUR',
+  FOOD = 'FOOD',
+  PHOTOSHOOT = 'PHOTOSHOOT ',
+  EDUCATIONAL_PROGRAM = 'EDUCATIONAL_PROGRAM'
   }

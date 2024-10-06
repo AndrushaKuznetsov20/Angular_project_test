@@ -15,5 +15,10 @@ export class LocalityService {
     let url = `${this.apiUrl}/read`;
     return this.http.get<{ localities: Locality[] }>(url);
   }
+
+  createLocality(locality: any): Observable<any> {
+    let url = `${this.apiUrl}/create`;
+    return this.http.post(url, locality, { responseType: 'text' });
+  }
   
 }
