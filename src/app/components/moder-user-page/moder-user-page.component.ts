@@ -22,9 +22,12 @@ import { TypeAssistance } from '../../models/enum/TypeAssistance.enum';
   styleUrls: ['./moder-user-page.component.css']
 })
 export class ModerUserPageComponent implements OnInit {
+  newBriefDescription: string = '';
   localities: any[] = [];
   assistances: any[] = [];
   attractions: any[] = [];
+  selectedAttractionId: number | null = null;
+  selectedAssistanceId: number | null = null;
   attractionForm: FormGroup;
   localityForm: FormGroup;
   assistanceForm: FormGroup;
@@ -132,6 +135,7 @@ export class ModerUserPageComponent implements OnInit {
         locality: { id: this.attractionForm.value.locality }
       };
   
+      console.log('Данные для отправки:', attractionData);
       this.attractionService.createAttraction(attractionData).subscribe(
         response => {
           alert(response);
@@ -173,5 +177,78 @@ export class ModerUserPageComponent implements OnInit {
         }
       );
     }
+  }
+
+  addAttractionToAssistance(assistanceId: number): void {
+    if (this.selectedAttractionId) {
+      this.assistanceService.addAttractionToAssistance(assistanceId, this.selectedAttractionId).subscribe(
+        response => {
+          console.log('Ответ от сервера:', response);
+          alert(response);
+          this.ngOnInit();
+        },
+        error => {
+          console.error(error);
+        });
+    }
+  }
+
+  updateAttraction(attractionId: number, briefDescription: string): void {
+    const updatedAttraction = { briefDescription };
+
+    this.attractionService.updateAttraction(attractionId, updatedAttraction).subscribe(
+      response => {
+        alert(response);
+        this.loadAttractions();
+        this.newBriefDescription = " ";
+      },
+      error => {
+        console.error('Ошибка при обновлении достопримечательности:', error);
+      }
+    );
+  }
+  
+  deleteAttraction(attractionId: number): void {
+    this.attractionService.deleteAttraction(attractionId).subscribe(
+      response => {
+        alert(response);
+        this.loadAttractions();
+      },
+      error => {
+        console.error('Ошибка при удалении достопримечательности:', error);
+      }
+    );
+  }
+
+  deleteAssistance(assistanceId: number): void {
+    this.assistanceService.deleteAssistance(assistanceId).subscribe(
+      response => {
+        alert(response);
+        this.loadAssistances();
+      },
+      error => {
+        console.error('Ошибка при удалении услуги:', error);
+      }
+    );
+  }
+
+  deleteLocality(localityId: number): void {
+    this.localityService.deleteLocality(localityId).subscribe(
+      response => {
+        alert(response);
+        this.loadLocalities();
+      },
+      error => {
+        console.error('Ошибка при удалении местоположения:', error);
+      }
+    );
+  }
+
+    getAssistanceType(typeAssistance: TypeAssistance): string {
+      return this.assistanceTypes[typeAssistance];
+  }
+
+  getAttractionType(typeAttraction: TypeAttraction): string {
+    return this.attractionTypes[typeAttraction];
   }
 }

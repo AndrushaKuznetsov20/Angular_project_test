@@ -19,7 +19,7 @@
         <option *ngFor="let locality of localities" [value]="locality.id">{{ locality.settlement }}</option>
       </select>
   
-      <button type="submit" (click)="createAttraction()">Добавить достопримечательность</button>
+      <button class="button1" type="submit" (click)="createAttraction()">Добавить достопримечательность</button>
     </form>
   
     <h2>Добавить локацию</h2>
@@ -36,7 +36,7 @@
       <label for="longitude">Долгота:</label>
       <input id="longitude" type="number" formControlName="longitude" />
   
-      <button type="submit" (click)="createLocality()">Добавить локацию</button>
+      <button class="button1" type="submit" (click)="createLocality()">Добавить локацию</button>
     </form>
   
     <h2>Добавить услугу</h2>
@@ -53,7 +53,7 @@
       <label for="performer">Исполнитель:</label>
       <input id="performer" formControlName="performer" />
     
-      <button type="submit" (click)="createAssistance()">Добавить услугу</button>
+      <button class="button1" type="submit" (click)="createAssistance()">Добавить услугу</button>
     </form>
     
     <div class="content-sections">
@@ -63,7 +63,7 @@
           <div *ngFor="let attraction of attractions" class="attraction-item">
             <h3>{{ attraction.name }}</h3>
             <p>{{ attraction.briefDescription }}</p>
-            <p>Тип: {{ attraction.typeAttraction }}</p>
+            <p>Тип: {{ getAttractionType(attraction.typeAttraction) }}</p>
             <p>
               Местоположение: 
               <span class="locality-link" (click)="showLocalityInfo(attraction.locality)">
@@ -71,32 +71,64 @@
               </span>
             </p>
             <p>Дата создания: {{ attraction.createDate | date }}</p>
+    
+            <input [(ngModel)]="newBriefDescription" placeholder="Новое краткое описание">
+    
+            <button (click)="updateAttraction(attraction.id, newBriefDescription)">Обновить</button><br>
+            <button (click)="deleteAttraction(attraction.id)">Удалить</button>
           </div>
         </div>
       </div>
+    </div>
+    
     
       <div class="assistances-section">
         <h2>Услуги</h2>
         <div class="assistance-list">
           <div *ngFor="let assistance of assistances" class="assistance-item">
-            <h3>{{ assistance.typeAssistance}}</h3>
+            <h3>{{ getAssistanceType(assistance.typeAssistance) }}</h3>
             <p>{{ assistance.briefDescription }}</p>
             <p>Исполнитель: {{ assistance.performer }}</p>
+            <p>Список достопримечательностей:</p>
+            <ul>
+              <li *ngFor="let attraction of assistance.attractionList">
+                {{ attraction.name }}
+              </li>
+            </ul>
+    
+            <select [(ngModel)]="selectedAttractionId">
+              <label for="typeAssistance">Выьерите достопримечательность:</label>
+              <option value="">Выберите достопримечательность</option>
+              <option *ngFor="let attraction of attractions" [value]="attraction.id">
+                {{ attraction.name }}
+              </option>
+            </select>
+    
+            <button (click)="addAttractionToAssistance(assistance.id)" [disabled]="!selectedAttractionId">
+              Добавить достопримечательность
+            </button><br>
+            <button (click)="deleteAssistance(assistance.id)">Удалить услугу</button>
           </div>
         </div>
       </div>
     
-      <div class="localities-section">
+      <div class="locality-list">
         <h2>Местоположения</h2>
-        <div class="locality-list">
-          <div *ngFor="let locality of localities" class="locality-item">
-            <h3>{{ locality.settlement}}</h3>
-            <p>{{ locality.region }}</p>
-            <p>Широта: {{ locality.latitude }}</p>
-            <p>Долгота: {{ locality.longitude }}</p>
-            <p>Лист достопримечательностей: {{ locality.attractionList }}</p>
-          </div>
+        <div *ngFor="let locality of localities" class="locality-item">
+          <h3>{{ locality.settlement }}</h3>
+          <p>{{ locality.region }}</p>
+          <p>Широта: {{ locality.latitude }}</p>
+          <p>Долгота: {{ locality.longitude }}</p>
+          <p>Лист достопримечательностей:</p>
+          <ul>
+            <li *ngFor="let attraction of locality.attractionList">
+              {{ attraction.name }}
+            </li>
+          </ul>
+    
+          <button (click)="deleteLocality(locality.id)">Удалить местоположение</button>
         </div>
       </div>
     </div>
+    
     

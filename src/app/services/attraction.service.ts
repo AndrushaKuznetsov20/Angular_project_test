@@ -36,4 +36,14 @@ export class AttractionService {
     let url = `${this.apiUrl}/create`;
     return this.http.post(url, attraction, { responseType: 'text' });
   }
+
+  updateAttraction(attractionId: number, updatedAttraction: any): Observable<any> {
+    const url = `${this.apiUrl}/update/${attractionId}`
+    return this.http.put(url, updatedAttraction, { responseType: 'text' });
+  }
+
+  deleteAttraction(attractionId: number): Observable<any> {
+    const url = `${this.apiUrl}/delete/${attractionId}`;
+    return this.http.delete(url, { responseType: 'text' });
+  }
 }

@@ -14,7 +14,6 @@ form {
     color: #333;
   }
   
-
   label {
     display: block;
     margin-bottom: 5px;
@@ -31,7 +30,7 @@ form {
   }
   
   button {
-    width: 100%;
+    width: 20%;
     padding: 10px;
     background-color: black;
     color: white;
@@ -51,61 +50,62 @@ form {
     appearance: none;
     background-color: white;
   }
-  /* Стили для секции достопримечательностей */
+
 .attractions-section {
-    margin-bottom: 20px; /* Отступ между секциями */
+    margin-bottom: 20px;
   }
   
   .attraction-item {
-    border: 1px solid #ddd; /* Граница вокруг каждого элемента */
-    padding: 15px; /* Отступ внутри элемента */
-    border-radius: 5px; /* Закругленные края */
-    background-color: #fff; /* Цвет фона элемента */
-    transition: transform 0.2s; /* Эффект перехода при наведении */
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: transform 0.2s;
   }
   
-  /* Эффект при наведении на элементы списка достопримечательностей */
   .attraction-item:hover {
-    transform: scale(1.02); /* Увеличение при наведении */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень при наведении */
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   
-  /* Стили для секции услуг */
   .assistances-section {
-    margin-bottom: 20px; /* Отступ между секциями */
+    margin-bottom: 20px;
   }
   
   .assistance-item {
-    border: 1px solid #ddd; /* Граница вокруг каждого элемента */
-    padding: 15px; /* Отступ внутри элемента */
-    border-radius: 5px; /* Закругленные края */
-    background-color: #f8f8f8; /* Цвет фона элемента */
-    transition: transform 0.2s; /* Эффект перехода при наведении */
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    transition: transform 0.2s;
   }
   
-  /* Эффект при наведении на элементы списка услуг */
   .assistance-item:hover {
-    transform: scale(1.02); /* Увеличение при наведении */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень при наведении */
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   
-  /* Стили для секции местоположений */
   .localities-section {
-    margin-bottom: 20px; /* Отступ между секциями */
+    margin-bottom: 20px;
   }
   
   .locality-item {
-    border: 1px solid #ddd; /* Граница вокруг каждого элемента */
-    padding: 15px; /* Отступ внутри элемента */
-    border-radius: 5px; /* Закругленные края */
-    background-color: #fff; /* Цвет фона элемента */
-    transition: transform 0.2s; /* Эффект перехода при наведении */
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: transform 0.2s;
   }
-  
-  /* Эффект при наведении на элементы списка местоположений */
+
   .locality-item:hover {
-    transform: scale(1.02); /* Увеличение при наведении */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Тень при наведении */
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  button {
+    margin-bottom: 10px;
+  }
+  .button1 {
+    width: 100%;
   }
   
   

@@ -21,4 +21,14 @@ export class AssistanceService{
     let url = `${this.apiUrl}/create`;
     return this.http.post(url, assistance, { responseType: 'text' });
   }
+
+  addAttractionToAssistance(assistanceId: number, attractionId: number): Observable<any> {
+    const url = `${this.apiUrl}/addAttraction/${attractionId}/${assistanceId}`;
+    return this.http.post(url, {}, { responseType: 'text' });
+  }
+
+  deleteAssistance(assistanceId: number): Observable<any> {
+    const url = `${this.apiUrl}/delete/${assistanceId}`;
+    return this.http.delete(url, { responseType: 'text' });
+  }
 }

@@ -19,20 +19,33 @@
   <button (click)="clearFilter()">Сбросить фильтр</button>
 </div>
 
-  
-  
-  <div class="attraction-list">
-    <div *ngFor="let attraction of attractions" class="attraction-item">
-      <h2>{{ attraction.name }}</h2>
-      <p>{{ attraction.briefDescription }}</p>
-      <p>Тип: {{ attraction.typeAttraction }}</p>
-      <p>
-        Местоположение: 
-        <span class="locality-link" (click)="showLocalityInfo(attraction.locality)">
-          {{ attraction.locality?.settlement }}
-        </span>
-      </p>
-      <p>Дата создания: {{ attraction.createDate | date }}</p>
+<div class="attraction-list">
+  <div *ngFor="let attraction of attractions" class="attraction-item">
+    <h2>{{ attraction.name }}</h2>
+    <p>{{ attraction.briefDescription }}</p>
+    <p>Тип: {{ attraction.typeAttraction ? getAttractionType(attraction.typeAttraction) : 'Тип недоступен' }}</p>
+    <p>
+      Местоположение: 
+      <span class="locality-link" (click)="showLocalityInfo(attraction.locality)">
+        {{ attraction.locality?.settlement }}
+      </span>
+    </p>
+    <p>
+      <span class="weather-link" (click)="showWeatherInfo(attraction.locality)">Узнать погоду</span>
+    </p>
+    <p>Дата создания: {{ attraction.createDate | date }}</p>
+    
+    <div *ngIf="attraction.assistanceList && attraction.assistanceList.length > 0">
+      <h4>Доступные услуги:</h4>
+      <ul>
+        <li *ngFor="let assistance of attraction.assistanceList">
+          <p>Тип: {{ assistance.typeAssistance ? getAssistanceType(assistance.typeAssistance) : 'Тип недоступен' }}</p>
+          <p>{{ assistance.briefDescription }}</p>
+          <p>{{ assistance.performer }}</p>
+        </li>
+      </ul>
     </div>
   </div>
+</div>
+
   

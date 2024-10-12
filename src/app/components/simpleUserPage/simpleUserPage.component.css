@@ -20,4 +20,10 @@
     color: blue;
     text-decoration: underline;
   }
+
+  .weather-link {
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+  }
   

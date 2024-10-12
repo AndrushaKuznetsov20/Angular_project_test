@@ -9,6 +9,7 @@ import { Locality } from '../../models/locality.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TypeAttraction } from '../../models/enum/TypeAttraction.enum';
+import { TypeAssistance } from '../../models/enum/TypeAssistance.enum';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -36,6 +37,14 @@ export class SimpleUserPageComponent {
     [TypeAttraction.RESERVES]: 'Заповедники'
   };
 
+  assistanceTypes: { [key in TypeAssistance]: string } = {
+    [TypeAssistance.GUIDE]: 'Гид',
+    [TypeAssistance.CAR_TOUR]: 'Автотур',
+    [TypeAssistance.FOOD]: 'Питание',
+    [TypeAssistance.PHOTOSHOOT]: 'Фотосессия',
+    [TypeAssistance.EDUCATIONAL_PROGRAM]: 'Образовательная программа'
+  };
+
   typeOptions = Object.values(TypeAttraction);
 
   constructor(private attractionService: AttractionService, private localityService: LocalityService) {}
@@ -49,12 +58,24 @@ export class SimpleUserPageComponent {
     alert(`Информация о местоположении:\nРегион: ${locality?.region}\nГород: ${locality?.settlement}\nШирота: ${locality?.latitude}\nДолгота: ${locality?.longitude}`);
   }
 
+  showWeatherInfo(locality: any): void  {
+    this.localityService.getWeather(locality).subscribe(
+      response => {
+        alert("Температура: " + response.temp_c + "\n" + "состояние: "
+           + response.condition + "\n" + response.recommendations);
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+  
+
   loadAttractions(typeAttraction?: TypeAttraction, localityId?: number): void {
     this.attractionService.getAttractions(typeAttraction, localityId).subscribe(
         (data) => {
             console.log('Data received:', data);
 
-            // Предположим, что ваш API возвращает объект с ключом attractions
             if (data && Array.isArray(data.attractions)) {
                 this.attractions = data.attractions.map(attraction => ({
                     id: attraction.id,
@@ -62,7 +83,7 @@ export class SimpleUserPageComponent {
                     createDate: attraction.createDate,
                     briefDescription: attraction.briefDescription,
                     typeAttraction: attraction.typeAttraction,
-                    locality: attraction.locality, // Эта часть теперь будет объектом
+                    locality: attraction.locality,
                     assistanceList: attraction.assistanceList
                 }));
             } else {
@@ -97,5 +118,11 @@ clearFilter(): void {
   this.selectedLocalityId = null;
   this.loadAttractions();
 }
+getAttractionType(typeAttraction: TypeAttraction): string {
+  return this.attractionTypes[typeAttraction];
+}
 
+getAssistanceType(typeAssistance: TypeAssistance): string {
+  return this.assistanceTypes[typeAssistance];
+}
 }
